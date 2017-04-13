@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-03-16 15:07:33
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-03-22 15:31:48
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2017-04-13 17:49:37
 */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -24,6 +24,7 @@ export default new Vuex.Store({
       currentData:[],
       userData:[],
       userList:[],
+      characterData:'',
       userId:'',
       tabId:'1'
    },
@@ -72,6 +73,9 @@ export default new Vuex.Store({
      },
      setTabId({commit},tId){
          commit('SET_TABID',tId)
+     },
+     setCharaData({commit},obj){
+         commit('SET_CHARA_DATA',obj)
      }
    },
    mutations:{
@@ -132,6 +136,9 @@ export default new Vuex.Store({
      SET_TABID(state,tId){
         state.tabId = tId
         console.log(state.tabId)
+     },
+     SET_CHARA_DATA(state,obj){
+         state.characterData = obj
      }
    },
     strict:debug

@@ -7,12 +7,6 @@
   
     <el-table-column label="宠物" width="130">
   
-      <template scope="scope">
-  
-              <a @click="openDialog('武将数据')" style="color:#ff0000;text-decoration:underline;position:relative;top:3px;cursor:pointer;">{{ scope.row.general}} </a>
-  
-              <div style="font-size:10px;">{{ scope.row.generalID }} </div>
-</template>
       </el-table-column>
       <el-table-column
         property="name"
@@ -80,7 +74,24 @@
   } from 'vuex'
   
   export default {
-  
+    beforeCreate(){
+     this.$http.get('http://localhost:8081/account/myPetsInfo  ',{
+      params: {
+        id:58,
+        pagenumber: 0
+      }
+    }).then(response => {
+      console.log(response);
+      // for (let i = 0; i < response.data.data.length; i++) {
+      //   this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+      //   // this.lists.push();
+      // }
+    }, response => {
+      // this.$store.commit('OPEN_DIALOG1');
+      // this.$store.commit('SET_RESPONSE', '提交失败')
+      console.log(response)
+    })
+    },
     computed: {
   
       ...mapState({
