@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-03-16 15:07:33
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-13 17:49:37
+ * @Last Modified time: 2017-04-17 17:25:31
 */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -26,7 +26,20 @@ export default new Vuex.Store({
       userList:[],
       characterData:'',
       userId:'',
-      tabId:'1'
+      tabId:'1',
+      petData:'',
+      petPage:"",
+      totalPet:{
+        myPets:'',
+        attackPets:'',
+        defencePets:''
+      },
+
+      //装备数据
+      equipPage:'',
+      equipData:''
+
+
    },
    actions: {
      setNewTitle({commit},msg){
@@ -76,6 +89,22 @@ export default new Vuex.Store({
      },
      setCharaData({commit},obj){
          commit('SET_CHARA_DATA',obj)
+     },
+     setPetData({commit},obj){
+         commit('SET_PET_DATA',obj)
+     },
+     setPetPage({commit},num){
+         commit('SET_PET_PAGE',num);
+     },
+     setTotalPet({commit},obj){
+         commit('SET_TOTAL_PET',obj);
+     },
+     //装备数据分发
+     setEquipPage({commit},num){
+         commit('SET_EQUIP_PAGE',num);  
+     },
+     setEquipData({commit},obj){
+         commit('SET_EQUIP_DATA',obj);
      }
    },
    mutations:{
@@ -139,6 +168,41 @@ export default new Vuex.Store({
      },
      SET_CHARA_DATA(state,obj){
          state.characterData = obj
+     },
+     SET_PET_DATA(state,obj){
+         state.petData = obj;
+     },
+     SET_PET_PAGE(state,num){
+         state.petPage = num;
+         console.log(state.petPage);
+     },
+     SET_TOTAL_PET(state,obj){
+         for(let k in obj){
+             switch (k)
+             {
+               case 'myPets':
+               state.totalPet.myPets = obj[k];
+               console.log(obj[k]);
+               break;   
+               case 'attackPets':
+               state.totalPet.attackPets = obj[k];
+               console.log(obj[k]);
+               break;
+               case 'defencePets':
+               state.totalPet.defencePets = obj[k];
+               console.log(obj[k]);
+               break; 
+             }
+         }
+        //  state.totalPet = obj;
+        
+     },
+     //装备数据分发
+     SET_EQUIP_PAGE(state,num){
+         state.equipPage = num;
+     },
+     SET_EQUIP_DATA(state,obj){
+         state.equipData = obj;
      }
    },
     strict:debug

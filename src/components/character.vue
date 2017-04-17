@@ -31,7 +31,7 @@
        <el-input v-model="formLabelAlign.useMCashes" :disabled="true"></el-input>
      </el-form-item>
      <el-form-item label="战力:" class="custom-bottom">
-       <el-input v-model="formLabelAlign.type" :disabled="true"></el-input>
+       <el-input v-model="formLabelAlign.power" :disabled="true"></el-input>
      </el-form-item>
      <el-form-item label="钻石:" class="custom-bottom">
        <el-input v-model="formLabelAlign.mCash" :disabled="true"></el-input>
@@ -61,7 +61,7 @@
     console.log(userId);
     this.$http.get('http://localhost:8081/account/characterInfo  ',{
       params: {
-        id: 5
+        cId: 5
       }
     }).then(response => {
       console.log(response);
@@ -69,6 +69,7 @@
       //   this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
       //   // this.lists.push();
       // }
+      this.$store.commit('SET_TOTAL_PET',response.data);
       this.$store.commit('SET_CHARA_DATA',response.data);
     }, response => {
       // this.$store.commit('OPEN_DIALOG1');

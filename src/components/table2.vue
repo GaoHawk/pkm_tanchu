@@ -9,51 +9,56 @@
       style="width:867px;">
       <el-table-column
         label="装备ID"
-        type="index"
+        property="equipId"
         width="70">
       </el-table-column>
       <el-table-column
         label="装备名称"
-        width="130">
-        <template scope="scope">
-            <a @click="openDialog('武将数据')" style="color:#ff0000;text-decoration:underline;position:relative;top:3px;cursor:pointer;">{{ scope.row.general}} </a>
-            <div style="font-size:10px;">{{ scope.row.generalID }} </div>
-        </template>
+        width="130"
+        property="equipName">
       </el-table-column>
       <el-table-column
-        property="name"
+        property="part"
         label="装备位"
         width="75">
       </el-table-column>
       <el-table-column
-        property="address"
+        property="equipLevel"
         label="星阶"
         width="55">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="upLevel"
         label="强化等级"
         width="130">
       </el-table-column>
       <el-table-column
-        property="liliang"
         label="属性1"
         width="75">
+        <template scope="scope">
+        <div style="font-size:10px;">{{ scope.row.equipValueStr | quality1 }} </div>
+        </template>
       </el-table-column>
       <el-table-column
-        property="liliang"
         label="属性2"
         width="75">
+        <template scope="scope">
+        <div style="font-size:10px;">{{ scope.row.equipValueStr | quality2 }} </div>
+        </template>
       </el-table-column>
       <el-table-column
-        property="liliang"
         label="额外属性1"
         width="130">
+        <template scope="scope">
+        <div style="font-size:10px;">{{ scope.row.extraValueStr | quality1 }} </div>
+        </template>
       </el-table-column>
       <el-table-column
-        property="liliang"
         label="额外属性2"
         width="125">
+        <template scope="scope">
+        <div style="font-size:10px;">{{ scope.row.extraValueStr | quality2 }} </div>
+        </template>
       </el-table-column>
 
     </el-table>
@@ -62,9 +67,27 @@
 <script>
   import { mapState } from 'vuex'
   export default {
+    beforeCreate(){
+       this.$http.get('http://localhost:8081/account/myEquipsInfo',{
+        params: {
+          cId:5,
+          pagenumber: 0
+        }
+      }).then(response => {
+        console.log(response);
+
+        this.$store.commit('SET_EQUIP_DATA',response.data.myEquips);
+        console.log(this.tableData);
+        this.$store.commit('SET_EQUIP_PAGE',response.data.totalPage);
+      }, response => {
+        // this.$store.commit('OPEN_DIALOG1');
+        // this.$store.commit('SET_RESPONSE', '提交失败')
+        console.log(response)
+      })
+    },
     computed:{
        ...mapState({
-         tableData: state => state.currentData,
+         tableData: state => state.equipData,
 
        })
     },
@@ -81,6 +104,24 @@
       openDialog:function(msg){
         this.$store.commit('OPEN_DIALOG');
         this.$store.commit('NEW_TITLE',msg);
+      }
+    },
+    filters:{
+      quality1:function(value){
+        if(value.length >0){
+          var str = value.split(',')[0];
+          return str;
+        }else{
+          return '';
+        }
+      },
+      quality2:function(value){
+        if(value.length>0){
+          var str = value.split(',')[1];
+          return str;
+        }else{
+          return '';
+        }
       }
     }
   }

@@ -91,7 +91,7 @@
     computed: {
   
       ...mapState({
-  
+        totalPet: state => state.totalPet
   
   
       })
@@ -168,23 +168,22 @@
   
       handleClick(tab, event) {
   
-        // console.log(tab,event);
-  
-        // if(tab.label == '武将'){
-  
-        //   console.log(tab)
-  
-        //   this.$http.get("api/table2").then(response => {
-  
-        //         this.$store.commit('SET_TABLE',response.data.data)
-  
-        //   }, response =>{
-  
-        //      console.log(response)
-  
-        //   })
-  
-        // }
+        console.log(tab,event);
+        switch(tab.label)
+        {
+          case '阵容':
+          console.log(this.totalPet)
+          this.$store.commit('SET_PET_DATA',this.totalPet.attackPets);
+          this.value = '选项1'
+          break;
+          case '宠物':
+          this.$store.commit('SET_PET_DATA',this.totalPet.myPets);
+          break;
+          case '精灵装备':
+          break;
+          case '材料道具':
+          break;
+        }
   
       },
   
@@ -195,25 +194,16 @@
       },
   
       selectChange(val) {
-  
-        // if(val == '选项2'){
-  
-        //    this.$http.get("api/table2").then(response => {
-  
-        //          this.$store.commit('SET_TABLE',response.data.data)
-  
-        //    }, response =>{
-  
-        //       console.log(response)
-  
-        //    })
-  
-        // }else{
-  
-  
-  
-        // }
-  
+        console.log(val);
+        switch(val)
+        {
+          case '选项1':
+          this.$store.commit('SET_PET_DATA',this.totalPet.attackPets);
+          break;
+          case '选项2':
+          this.$store.commit('SET_PET_DATA',this.totalPet.defencePets);
+          break;
+        }
       }
   
   

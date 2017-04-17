@@ -1,65 +1,68 @@
 <template>
-  <el-table :data="tableData" border highlight-current-row @current-change="handleCurrentChange" row-class-name="styleObj" style="width:867px;">
+  <el-table :data="petData" border highlight-current-row @current-change="handleCurrentChange" row-class-name="styleObj" style="width:877px;">
   
     <el-table-column label="序号" type="index" width="50">
   
     </el-table-column>
   
-    <el-table-column label="宠物" width="130">
+    <el-table-column 
+      property="petName"
+      label="宠物" 
+      width="100">
   
       </el-table-column>
       <el-table-column
-        property="name"
+        property="nickname"
         label="昵称"
-        width="50">
+        width="90">
       </el-table-column>
       <el-table-column
-        property="address"
+        property="level"
         label="等级"
         width="50">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="breakthrough"
         label="突破"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="evolution"
         label="进阶"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="exp"
         label="经验"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="HPValue"
         label="血量"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="AtkValue"
         label="物攻"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="DefValue"
         label="物防"
         width="65">
       </el-table-column>
      <el-table-column
-        property="liliang"
+        property="SAtkValue"
         label="特攻"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="SDefValue"
         label="特防"
         width="65">
       </el-table-column>
       <el-table-column
-        property="liliang"
+        property="SpdValue"
         label="速度"
         width="65">
       </el-table-column>
@@ -77,15 +80,16 @@
     beforeCreate(){
      this.$http.get('http://localhost:8081/account/myPetsInfo  ',{
       params: {
-        id:58,
+        cId:5,
         pagenumber: 0
       }
     }).then(response => {
       console.log(response);
-      // for (let i = 0; i < response.data.data.length; i++) {
-      //   this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
-      //   // this.lists.push();
-      // }
+
+      // this.$store.commit('SET_PET_DATA',response.data.myPets);
+      this.$store.commit('SET_TOTAL_PET',response.data);
+      // this.$store.commit('JSON_DATA_PET',response.data);
+      this.$store.commit('SET_PET_PAGE',response.data.totalPage);
     }, response => {
       // this.$store.commit('OPEN_DIALOG1');
       // this.$store.commit('SET_RESPONSE', '提交失败')
@@ -96,9 +100,8 @@
   
       ...mapState({
   
-        tableData: state => state.currentData,
-  
-  
+        petData: state => state.petData,
+        
   
       })
   
