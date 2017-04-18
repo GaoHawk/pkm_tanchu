@@ -1,53 +1,36 @@
 <template>
   <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
+    <div style="float:right;margin-right:2%;">
+    <i class="el-icon-close" style="position:fixed;top:174px;z-index:100;cursor:pointer;" @click="closeInfo"></i>
+    </div>
+
   
-    <el-tab-pane label="角色管理" name="first">
+    <el-tab-pane label="装备" name="first">
   
-      <character></character>
+      <zhuangbei></zhuangbei>
   
     </el-tab-pane>
   
-    <el-tab-pane label="阵容" name="second" >
-      <el-select v-model="value" size="mini" @change="selectChange" style="float:left;margin-bottom:3px;">
+    <el-tab-pane label="当前技能" name="second" >
 
-      <el-option v-for="item in options" :key="item.id" :label="item.label" :value="item.value">
 
-      </el-option>
-
-      </el-select>
-      <div style="clear:both;"></div>
-      <TTable></TTable>
   
     </el-tab-pane>
   
-    <el-tab-pane label="宠物" name="third">
+    <el-tab-pane label="可回忆技能" name="third">
   
-      <TTable></TTable>
-      <scTap v-show="petInfoShow" style="margin-top:15px;"></scTap>
-      <pageNum :totalPage="petPage" type="pets" style="margin-top:7px;" v-if="!petInfoShow && petPage>1"></pageNum>
+
+
     </el-tab-pane>
   
-    <el-tab-pane label="精灵装备" name="fourth">
+    <el-tab-pane label="努力值" name="fourth">
   
       <!--精灵装备-->
   
-      <div class="custom-select">
-  
-      </div>
-  
-      <zhuangbei></zhuangbei>
-      <pageNum :totalPage="equipPage*8" type="equip" style="margin-top:7px;margin-right:9%;" v-if="equipPage>1"></pageNum>
+
+
     </el-tab-pane>
-  
-    <el-tab-pane label="材料道具" name="five">
-  
-      <!--材料道具-->
-  
-      <itemm></itemm>
-  
-      <pageNum :totalPage="itemsPage*8" type="items" style="margin-right:27%;margin-top:7px;" v-if="itemsPage>1"></pageNum>
-    </el-tab-pane>
-  
+    
   </el-tabs>
 </template>
 <style>
@@ -88,19 +71,19 @@
   
   } from 'vuex'
   
-   import scTap from './secondTap.vue'
   
   
   export default {
-  
+    beforeCreate(){
+        console.log('petInfo');
+    },
     computed: {
   
       ...mapState({
         totalPet: state => state.totalPet,
         itemsPage: state => state.itemsPage,
         equipPage: state => state.equipPage,
-        petPage: state => state.petPage,
-        petInfoShow: state => state.petInfoShow
+        petPage: state => state.petPage
   
       })
   
@@ -156,9 +139,7 @@
   
       itemm,
 
-      pageNum,
-
-      scTap
+      pageNum
   
     },
   
@@ -180,6 +161,7 @@
   
       handleClick(tab, event) {
   
+        console.log(tab,event);
         switch(tab.label)
         {
           case '阵容':
@@ -203,18 +185,14 @@
         console.log(ev)
   
       },
-  
+      closeInfo(){
+         console.log('close');
+         this.$store.commit('SET_PETINFO_SHOW',false);
+         this.$store.commit('SET_PET_DATA',this.totalPet.myPets);
+      },
       selectChange(val) {
         console.log(val);
-        switch(val)
-        {
-          case '选项1':
-          this.$store.commit('SET_PET_DATA',this.totalPet.attackPets);
-          break;
-          case '选项2':
-          this.$store.commit('SET_PET_DATA',this.totalPet.defencePets);
-          break;
-        }
+
       }
   
   

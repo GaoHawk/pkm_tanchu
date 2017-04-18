@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-03-16 15:07:33
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-17 17:25:31
+ * @Last Modified time: 2017-04-18 17:30:44
 */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -37,9 +37,18 @@ export default new Vuex.Store({
 
       //装备数据
       equipPage:'',
-      equipData:''
+      equipData:'',
 
+      //道具数据
+      itemsPage:'',
+      itemsData:'',
 
+      //点击显示宠物详情
+      petInfoShow:false,
+
+      //点击显示主页面
+      showHome:false
+      
    },
    actions: {
      setNewTitle({commit},msg){
@@ -105,7 +114,22 @@ export default new Vuex.Store({
      },
      setEquipData({commit},obj){
          commit('SET_EQUIP_DATA',obj);
-     }
+     },
+    //  道具数据分发
+    setItemsPage({commit},num){
+        commit('SET_ITEMS_PAGE',num)
+    },
+    setItemsData({commit},obj){
+        commit('SET_ITEMS_DATA',obj);
+    },
+    // 宠物详情显示
+    setPetInfoShow({commit},bl){
+        commit('SET_PETINFO_SHOW',bl)
+    },
+    // 点击显示主页面
+    setshowHome({commit},bl){
+        commit('SET_SHOWHOME',bl)
+    }
    },
    mutations:{
      NEW_TITLE(state,msg){
@@ -203,6 +227,22 @@ export default new Vuex.Store({
      },
      SET_EQUIP_DATA(state,obj){
          state.equipData = obj;
+     },
+
+     //道具数据分发
+     SET_ITEMS_PAGE(state,num){
+         state.itemsPage = num;
+     },
+     SET_ITEMS_DATA(state,obj){
+         state.itemsData = obj;
+     },
+     //是否显示宠物详情页面
+     SET_PETINFO_SHOW(state,bl){
+         state.petInfoShow = bl;
+     },
+     // 点击显示主页面
+     SET_SHOWHOME(state,bl){
+         state.showHome = bl;
      }
    },
     strict:debug

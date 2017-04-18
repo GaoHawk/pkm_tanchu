@@ -9,33 +9,47 @@
       style="width:655px;">
       <el-table-column
         label="道具ID"
-        type="index"
+        property="itemId"
         width="170">
       </el-table-column>
       <el-table-column
         label="道具名称"
+        property="itemName"
         width="310">
-        <template scope="scope">
-            <a @click="openDialog('武将数据')" style="color:#ff0000;text-decoration:underline;position:relative;top:3px;cursor:pointer;">{{ scope.row.general}} </a>
-            <div style="font-size:10px;">{{ scope.row.generalID }} </div>
-        </template>
       </el-table-column>
       <el-table-column
-        property="name"
+        property="itemNum"
         label="数量"
         width="170">
       </el-table-column>
-     
-
     </el-table>
-    <!-- <sselect></sselect> -->
 </template>
 <script>
   import { mapState } from 'vuex'
+  import pagination from './pageination.vue'
   export default {
+    beforeCreate(){
+      this.$http.get('http://localhost:8081/account/myItems',{
+        params: {
+          cId:5,
+          pagenumber: 1
+        }
+      }).then(response => {
+        console.log(response);
+
+        this.$store.commit('SET_ITEMS_DATA',response.data.myItems);
+        console.log(this.tableData);
+        this.$store.commit('SET_ITEMS_PAGE',response.data.totalPage);
+      }, response => {
+        // this.$store.commit('OPEN_DIALOG1');
+        // this.$store.commit('SET_RESPONSE', '提交失败')
+        console.log(response)
+      })
+    },
     computed:{
        ...mapState({
-         tableData: state => state.currentData,
+         tableData: state => state.itemsData,
+         totalPage: state => state.itemsPage
 
        })
     },
@@ -45,6 +59,7 @@
 
       }
     },
+    components:{ pagination },
     methods: {
       handleCurrentChange(val) {
         this.currentRow = val;

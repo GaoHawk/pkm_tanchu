@@ -71,7 +71,7 @@
        this.$http.get('http://localhost:8081/account/myEquipsInfo',{
         params: {
           cId:5,
-          pagenumber: 0
+          pagenumber: 1
         }
       }).then(response => {
         console.log(response);

@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app"  >
+    <div style="float:right;margin-right:2%;">
+    <i class="el-icon-close" style="position:fixed;top:16px;z-index:100;cursor:pointer;" @click="closeHome"></i>
+    </div>
     <el-row class="tac" :gutter="10">
       <el-col :span="24">
           <First v-show="tabId == 1"></First>
@@ -16,25 +19,17 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   beforeCreate(){
-      // this.$http.get("http://localhost:8081/character/findCharacters",   {
-      //   params: {
-      //         keyType: 0,
-      //         keyValue:2
-      //       }
-      // }).then(response => {
-      //       console.log(response)
-      //       console.log(this._data)
-      //       // this.$store.commit('SET_TABLE',response.data.data)
-      // }, response =>{
-      //    console.log(response)
-      // })
-
+    console.log(sessionStorage);
+    if(sessionStorage.showHome){
+      this.$store.commit('SET_SHOWHOME',sessionStorage.showHome);
+    }
   },
   name: 'app',
   computed:{
      ...mapState({
           Datajson:state => state.userList,
-          tabId:state => state.tabId
+          tabId:state => state.tabId,
+          showHome:state => state.showHome
      })
   },
   data(){
@@ -43,13 +38,18 @@ export default {
          // dialogVisible: false,
          radio:'1',
          input2:'',
-         nodata:false
+         nodata:false,
       }
   },
   components:{First},
 
   methods: {
-
+      closeHome(key, keyPath) {
+        this.$store.commit('SET_SHOWHOME',false);
+        this.showHome = false;
+        console.log(sessionStorage)
+        console.log(this.showHome)
+      },
 
   }
 }
@@ -70,7 +70,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin:0 28px;
-  margin-top: 60px;
+  min-width:876px;
+  width:80%;
 }
 .tabs{
    width:66%;
