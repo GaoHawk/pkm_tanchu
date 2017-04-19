@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-03-16 15:07:33
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-18 17:30:44
+ * @Last Modified time: 2017-04-19 11:08:22
 */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -47,7 +47,14 @@ export default new Vuex.Store({
       petInfoShow:false,
 
       //点击显示主页面
-      showHome:false
+      showHome:false,
+
+      //宠物技能数据
+      skillData:'',
+      unskillData:'',
+
+      // 宠物努力值
+      struggleData:''
       
    },
    actions: {
@@ -129,6 +136,18 @@ export default new Vuex.Store({
     // 点击显示主页面
     setshowHome({commit},bl){
         commit('SET_SHOWHOME',bl)
+    },
+    // 宠物技能数据
+    setSkillData({commit},obj){
+        commit('SET_SKILL_DATA',obj)
+    },
+    setUnskillData({commit},obj){
+        commit('SET_UNSKILL_DATA',obj);
+    },
+
+    // 宠物努力值
+    setstruggleData({commit},obj){
+        commit('SET_STRU_DATA',obj);
     }
    },
    mutations:{
@@ -243,6 +262,18 @@ export default new Vuex.Store({
      // 点击显示主页面
      SET_SHOWHOME(state,bl){
          state.showHome = bl;
+     },
+     // 宠物技能数据
+     SET_SKILL_DATA(state,obj){
+         state.skillData = obj;
+     },
+     SET_UNSKILL_DATA(state,obj){
+        state.unskillData = obj
+     },
+
+     // 宠物努力值
+     SET_STRU_DATA(state,obj){
+         state.struggleData = obj;
      }
    },
     strict:debug

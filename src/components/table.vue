@@ -113,8 +113,6 @@
   
         currentRow: null,
   
-  
-  
       }
   
     },
@@ -148,6 +146,9 @@
           console.log(response);
           this.$store.commit('SET_PETINFO_SHOW',true);
           this.$store.commit('SET_EQUIP_DATA',response.data.petEquips);
+          this.$store.commit('SET_SKILL_DATA',response.data.petSkills);
+          this.$store.commit('SET_UNSKILL_DATA',response.data.petUnSkills);
+          this.$store.commit('SET_STRU_DATA',[response.data.struggle]);
           // this.$store.commit('SET_EQUIP_DATA',response.data.myEquips);
           // console.log(this.tableData);
           // this.$store.commit('SET_EQUIP_PAGE',response.data.totalPage);

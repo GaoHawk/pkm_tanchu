@@ -189,8 +189,23 @@
           break;
           case '宠物':
           this.$store.commit('SET_PET_DATA',this.totalPet.myPets);
+          this.$store.commit('SET_PETINFO_SHOW',false);
           break;
           case '精灵装备':
+          this.$http.get('http://localhost:8081/account/myEquipsInfo',{
+            params: {
+              cId:5,
+              pagenumber: 1
+            }
+          }).then(response => {
+            console.log(response);
+            this.$store.commit('SET_EQUIP_DATA',response.data.myEquips);
+            this.$store.commit('SET_EQUIP_PAGE',response.data.totalPage);
+          }, response => {
+            // this.$store.commit('OPEN_DIALOG1');
+            // this.$store.commit('SET_RESPONSE', '提交失败')
+            console.log(response)
+          })
           break;
           case '材料道具':
           break;

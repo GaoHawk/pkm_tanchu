@@ -12,21 +12,20 @@
     </el-tab-pane>
   
     <el-tab-pane label="当前技能" name="second" >
-
+    <skillTable></skillTable>
 
   
     </el-tab-pane>
   
     <el-tab-pane label="可回忆技能" name="third">
   
-
+      <skillTable></skillTable>
 
     </el-tab-pane>
   
     <el-tab-pane label="努力值" name="fourth">
   
-      <!--精灵装备-->
-  
+       <struggle></struggle>
 
 
     </el-tab-pane>
@@ -51,17 +50,12 @@
   }
 </style>
 <script>
-  import userComponent from './user.vue'
   
   import zhuangbei from './table2.vue'
-  
-  import itemm from './table3.vue'
-  
-  import character from './character.vue'
-  
-  import TTable from './table.vue'
 
-  import pageNum from './pageination.vue'
+  import skillTable from './skillTable.vue'
+
+  import struggle from './endeavorTable.vue'
   
   import {
   
@@ -81,9 +75,9 @@
   
       ...mapState({
         totalPet: state => state.totalPet,
-        itemsPage: state => state.itemsPage,
-        equipPage: state => state.equipPage,
-        petPage: state => state.petPage
+        skillData: state => state.skillData,
+        unskillData: state => state.unskillData,
+        struggleData: state => state.struggleData
   
       })
   
@@ -129,17 +123,11 @@
   
     components: {
   
-      userComponent,
-  
-      character,
-  
-      TTable,
-  
       zhuangbei,
-  
-      itemm,
 
-      pageNum
+      skillTable,
+
+      struggle
   
     },
   
@@ -164,17 +152,17 @@
         console.log(tab,event);
         switch(tab.label)
         {
-          case '阵容':
-          console.log(this.totalPet)
-          this.$store.commit('SET_PET_DATA',this.totalPet.attackPets);
+          case '装备':
           this.value = '选项1'
           break;
-          case '宠物':
-          this.$store.commit('SET_PET_DATA',this.totalPet.myPets);
+          case '当前技能':
+          this.$store.commit('SET_TABLE',this.skillData);
           break;
-          case '精灵装备':
+          case '可回忆技能':
+          this.$store.commit('SET_TABLE',this.unskillData);
           break;
-          case '材料道具':
+          case '努力值':
+          this.$store.commit('SET_TABLE',this.struggleData);
           break;
         }
   
