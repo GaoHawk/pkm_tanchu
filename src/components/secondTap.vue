@@ -1,7 +1,7 @@
 <template>
   <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
     <div style="float:right;margin-right:2%;">
-    <i class="el-icon-close" style="position:fixed;top:174px;z-index:100;cursor:pointer;" @click="closeInfo"></i>
+    <i class="el-icon-close" style="position:fixed;top:186px;z-index:100;cursor:pointer;" @click="closeInfo"></i>
     </div>
 
   
@@ -69,7 +69,6 @@
   
   export default {
     beforeCreate(){
-        console.log('petInfo');
     },
     computed: {
   
@@ -137,19 +136,18 @@
   
       handleOpen(key, keyPath) {
   
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
   
       },
   
       handleClose(key, keyPath) {
   
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
   
       },
   
       handleClick(tab, event) {
   
-        console.log(tab,event);
         switch(tab.label)
         {
           case '装备':
@@ -170,16 +168,13 @@
   
       handleIconClick(ev) {
   
-        console.log(ev)
   
       },
       closeInfo(){
-         console.log('close');
          this.$store.commit('SET_PETINFO_SHOW',false);
          this.$store.commit('SET_PET_DATA',this.totalPet.myPets);
       },
       selectChange(val) {
-        console.log(val);
 
       }
   

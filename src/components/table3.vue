@@ -28,17 +28,15 @@
   import { mapState } from 'vuex'
   import pagination from './pageination.vue'
   export default {
-    beforeCreate(){
-      this.$http.get('http://localhost:8081/account/myItems',{
+    mounted(){
+      this.$http.get('/account/myItems',{
         params: {
-          cId:5,
+          cId:this.cId,
           pagenumber: 1
         }
       }).then(response => {
-        console.log(response);
 
         this.$store.commit('SET_ITEMS_DATA',response.data.myItems);
-        console.log(this.tableData);
         this.$store.commit('SET_ITEMS_PAGE',response.data.totalPage);
       }, response => {
         // this.$store.commit('OPEN_DIALOG1');
@@ -49,7 +47,8 @@
     computed:{
        ...mapState({
          tableData: state => state.itemsData,
-         totalPage: state => state.itemsPage
+         totalPage: state => state.itemsPage,
+         cId: state => state.userId
 
        })
     },

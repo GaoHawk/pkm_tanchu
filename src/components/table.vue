@@ -8,11 +8,11 @@
     <el-table-column 
       property="petName"
       label="宠物" 
-      width="100">
+      width="85">
       </el-table-column>
       <el-table-column
         label="昵称"
-        width="90">
+        width="85">
         <template scope="scope">
         <div style="font-size:10px;cursor:pointer;" @click="petInfo(scope.row)">{{ scope.row.nickname }} </div>
         </template>
@@ -25,7 +25,7 @@
       <el-table-column
         property="breakthrough"
         label="突破"
-        width="65">
+        width="50">
       </el-table-column>
       <el-table-column
         property="evolution"
@@ -34,8 +34,8 @@
       </el-table-column>
       <el-table-column
         property="exp"
-        label="经验"
-        width="65">
+        label="经验值"
+        width="90">
       </el-table-column>
       <el-table-column
         property="HPValue"
@@ -78,14 +78,13 @@
  
   
   export default {
-    beforeCreate(){
-     this.$http.get('http://localhost:8081/account/myPetsInfo  ',{
+    mounted(){
+     this.$http.get('/account/myPetsInfo  ',{
       params: {
-        cId:5,
+        cId:this.cId,
         pagenumber: 0
       }
     }).then(response => {
-      console.log(response);
       // this.$store.commit('SET_PET_DATA',response.data.myPets);
       this.$store.commit('SET_TOTAL_PET',response.data);
       // this.$store.commit('JSON_DATA_PET',response.data);
@@ -93,7 +92,6 @@
     }, response => {
       // this.$store.commit('OPEN_DIALOG1');
       // this.$store.commit('SET_RESPONSE', '提交失败')
-      console.log(response)
     })
     },
     computed: {
@@ -101,6 +99,7 @@
       ...mapState({
   
         petData: state => state.petData,
+        cId: state => state.userId
         
   
       })
@@ -133,17 +132,14 @@
   
       },
       petInfo(obj){
-        console.log(obj)
         var data = [obj]
         this.$store.commit('SET_PET_DATA',data);
         var pId = obj.pId;
-        console.log(pId);
-        this.$http.get('http://localhost:8081/account/thisPetInfo',{
+        this.$http.get('/account/thisPetInfo',{
           params: {
             pId:pId,
           }
         }).then(response => {
-          console.log(response);
           this.$store.commit('SET_PETINFO_SHOW',true);
           this.$store.commit('SET_EQUIP_DATA',response.data.petEquips);
           this.$store.commit('SET_SKILL_DATA',response.data.petSkills);

@@ -67,17 +67,15 @@
 <script>
   import { mapState } from 'vuex'
   export default {
-    beforeCreate(){
-       this.$http.get('http://localhost:8081/account/myEquipsInfo',{
+    mounted(){
+       this.$http.get('/account/myEquipsInfo',{
         params: {
-          cId:5,
+          cId:this.cId,
           pagenumber: 1
         }
       }).then(response => {
-        console.log(response);
 
         this.$store.commit('SET_EQUIP_DATA',response.data.myEquips);
-        console.log(this.tableData);
         this.$store.commit('SET_EQUIP_PAGE',response.data.totalPage);
       }, response => {
         // this.$store.commit('OPEN_DIALOG1');
@@ -88,6 +86,7 @@
     computed:{
        ...mapState({
          tableData: state => state.equipData,
+         cId: state => state.userId
 
        })
     },

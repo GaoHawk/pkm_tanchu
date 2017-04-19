@@ -54,17 +54,14 @@
 <script>
   import { mapState } from 'vuex';
   export default {
-    beforeCreate(){
-          var numH  =  numH?numH:1;
-    var userId='236942';
-    var session='8EFADDB3AFDAE92EF1AA398165E4722D1491640024560';
-    console.log(userId);
-    this.$http.get('http://localhost:8081/account/characterInfo  ',{
+    mounted(){
+    var numH  =  numH?numH:1;
+
+    this.$http.get('/account/characterInfo  ',{
       params: {
-        cId: 5
+        cId: this.cId
       }
     }).then(response => {
-      console.log(response);
       // for (let i = 0; i < response.data.data.length; i++) {
       //   this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
       //   // this.lists.push();
@@ -74,12 +71,12 @@
     }, response => {
       // this.$store.commit('OPEN_DIALOG1');
       // this.$store.commit('SET_RESPONSE', '提交失败')
-      console.log(response)
     })
     },
     computed:{
        ...mapState({
-         formLabelAlign:state => state.characterData
+         formLabelAlign:state => state.characterData,
+         cId: state => state.userId
        })
     },
     name: 'app',
@@ -94,16 +91,16 @@
     },
     methods: {
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       handleClick(tab,event){
-         console.log(tab,event);
+        //  console.log(tab,event);
       },
       handleIconClick(ev){
-         console.log(ev)
+        //  console.log(ev)
       },
       // 对话框控制方法
       openDialog:function(msg){

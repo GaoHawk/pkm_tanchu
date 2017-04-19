@@ -1,8 +1,5 @@
 <template>
   <div id="app"  >
-    <div style="float:right;margin-right:2%;">
-    <i class="el-icon-close" style="position:fixed;top:16px;z-index:100;cursor:pointer;" @click="closeHome"></i>
-    </div>
     <el-row class="tac" :gutter="10">
       <el-col :span="24">
           <First v-show="tabId == 1"></First>
@@ -19,10 +16,14 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   beforeCreate(){
-    console.log(sessionStorage);
-    if(sessionStorage.showHome){
-      this.$store.commit('SET_SHOWHOME',sessionStorage.showHome);
-    }
+
+    // if(sessionStorage.showHome){
+    //   this.$store.commit('SET_SHOWHOME',sessionStorage.showHome);
+    // }
+
+     var userId = window.location.search.split('?')[1].split('=')[1];
+     this.$store.commit('SET_USER_ID',userId);
+
   },
   name: 'app',
   computed:{
@@ -47,8 +48,7 @@ export default {
       closeHome(key, keyPath) {
         this.$store.commit('SET_SHOWHOME',false);
         this.showHome = false;
-        console.log(sessionStorage)
-        console.log(this.showHome)
+
       },
 
   }
@@ -69,7 +69,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin:0 28px;
+  margin:0 auto;
+    margin-top: 35px;
   min-width:876px;
   width:80%;
 }

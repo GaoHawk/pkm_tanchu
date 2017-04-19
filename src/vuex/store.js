@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-03-16 15:07:33
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-19 11:08:22
+ * @Last Modified time: 2017-04-19 16:14:11
 */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -54,7 +54,10 @@ export default new Vuex.Store({
       unskillData:'',
 
       // 宠物努力值
-      struggleData:''
+      struggleData:'',
+
+      // 保存其他页面跳转过来的用户id
+      userId:''
       
    },
    actions: {
@@ -148,12 +151,17 @@ export default new Vuex.Store({
     // 宠物努力值
     setstruggleData({commit},obj){
         commit('SET_STRU_DATA',obj);
+    },
+
+    // 保存用户id
+    setUserId({commit},id){
+        commit('SET_USER_ID',id);
     }
    },
    mutations:{
      NEW_TITLE(state,msg){
         state.title= msg;
-        console.log(msg)
+
      },
      ROUT_PATH(state,path){
         router.push(path)
@@ -185,13 +193,13 @@ export default new Vuex.Store({
      },
      SET_USER(state,dataArr){
         state.userData = dataArr
-        console.log(state.userData)
+
      },
      DELETE_USERDATA(state){
          for(let key in state.userData){
              state.userData[key] = ''
          }
-         console.log(state.userData);
+     
      },
      SET_LIST(state,dataArr){
         state.userList = dataArr
@@ -200,14 +208,14 @@ export default new Vuex.Store({
         state.userList = state.userList.filter(function(item){
             return item.cId !== uid
         })
-         console.log(state.userList);
+     
      },
      SET_UID(state,userId){
         state.userId = userId
      },
      SET_TABID(state,tId){
         state.tabId = tId
-        console.log(state.tabId)
+
      },
      SET_CHARA_DATA(state,obj){
          state.characterData = obj
@@ -217,7 +225,7 @@ export default new Vuex.Store({
      },
      SET_PET_PAGE(state,num){
          state.petPage = num;
-         console.log(state.petPage);
+
      },
      SET_TOTAL_PET(state,obj){
          for(let k in obj){
@@ -225,15 +233,15 @@ export default new Vuex.Store({
              {
                case 'myPets':
                state.totalPet.myPets = obj[k];
-               console.log(obj[k]);
+      
                break;   
                case 'attackPets':
                state.totalPet.attackPets = obj[k];
-               console.log(obj[k]);
+            
                break;
                case 'defencePets':
                state.totalPet.defencePets = obj[k];
-               console.log(obj[k]);
+            
                break; 
              }
          }
@@ -274,6 +282,10 @@ export default new Vuex.Store({
      // 宠物努力值
      SET_STRU_DATA(state,obj){
          state.struggleData = obj;
+     },
+     // 保存用户id
+     SET_USER_ID(state,id){
+         state.userId = id;
      }
    },
     strict:debug

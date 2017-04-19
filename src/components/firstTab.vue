@@ -17,14 +17,14 @@
       </el-select>
       <div style="clear:both;"></div>
       <TTable></TTable>
-  
+      <scTap v-show="petInfoShow" style="margin-top:15px;"></scTap>
     </el-tab-pane>
   
     <el-tab-pane label="宠物" name="third">
   
       <TTable></TTable>
       <scTap v-show="petInfoShow" style="margin-top:15px;"></scTap>
-      <pageNum :totalPage="petPage" type="pets" style="margin-top:7px;" v-if="!petInfoShow && petPage>1"></pageNum>
+      <pageNum :totalPage="petPage" type="pets" :cId="cId" style="margin-top:7px;" v-if="!petInfoShow && petPage>1"></pageNum>
     </el-tab-pane>
   
     <el-tab-pane label="精灵装备" name="fourth">
@@ -36,7 +36,7 @@
       </div>
   
       <zhuangbei></zhuangbei>
-      <pageNum :totalPage="equipPage*8" type="equip" style="margin-top:7px;margin-right:9%;" v-if="equipPage>1"></pageNum>
+      <pageNum :totalPage="equipPage*8" type="equip" :cId="cId" style="margin-top:7px;margin-right:9%;" v-if="equipPage>1"></pageNum>
     </el-tab-pane>
   
     <el-tab-pane label="材料道具" name="five">
@@ -45,7 +45,7 @@
   
       <itemm></itemm>
   
-      <pageNum :totalPage="itemsPage*8" type="items" style="margin-right:27%;margin-top:7px;" v-if="itemsPage>1"></pageNum>
+      <pageNum :totalPage="itemsPage*8" type="items" :cId="cId" style="margin-right:27%;margin-top:7px;" v-if="itemsPage>1"></pageNum>
     </el-tab-pane>
   
   </el-tabs>
@@ -100,7 +100,8 @@
         itemsPage: state => state.itemsPage,
         equipPage: state => state.equipPage,
         petPage: state => state.petPage,
-        petInfoShow: state => state.petInfoShow
+        petInfoShow: state => state.petInfoShow,
+        cId: state => state.userId
   
       })
   
@@ -168,13 +169,13 @@
   
       handleOpen(key, keyPath) {
   
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
   
       },
   
       handleClose(key, keyPath) {
   
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
   
       },
   
@@ -183,8 +184,9 @@
         switch(tab.label)
         {
           case '阵容':
-          console.log(this.totalPet)
+
           this.$store.commit('SET_PET_DATA',this.totalPet.attackPets);
+          this.$store.commit('SET_PETINFO_SHOW',false);
           this.value = '选项1'
           break;
           case '宠物':
@@ -192,19 +194,19 @@
           this.$store.commit('SET_PETINFO_SHOW',false);
           break;
           case '精灵装备':
-          this.$http.get('http://localhost:8081/account/myEquipsInfo',{
+          this.$http.get('/account/myEquipsInfo',{
             params: {
-              cId:5,
+              cId:this.cId,
               pagenumber: 1
             }
           }).then(response => {
-            console.log(response);
+      
             this.$store.commit('SET_EQUIP_DATA',response.data.myEquips);
             this.$store.commit('SET_EQUIP_PAGE',response.data.totalPage);
           }, response => {
             // this.$store.commit('OPEN_DIALOG1');
             // this.$store.commit('SET_RESPONSE', '提交失败')
-            console.log(response)
+        
           })
           break;
           case '材料道具':
