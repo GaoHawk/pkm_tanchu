@@ -32,13 +32,12 @@
         switch(this.type)
         {
             case 'items':
-            this.$http.get('/account/myItems',{
+            this.$http.get('/pkm/account/myItems',{
                 params: {
                 cId:this.cId,
                 pagenumber: val
                 }
             }).then(response => {
-
 
                 this.$store.commit('SET_ITEMS_DATA',response.data.myItems);
 
@@ -51,7 +50,7 @@
     
             break;
             case 'equip':
-            this.$http.get('/account/myEquipsInfo',{
+            this.$http.get('/pkm/account/myEquipsInfo',{
                 params: {
                 cId:this.cId,
                 pagenumber: val
@@ -69,7 +68,7 @@
             })
             break;
             case 'pets':
-            this.$http.get('/account/myPetsInfo  ',{
+            this.$http.get('/pkm/account/myPetsInfo  ',{
             params: {
                 cId:this.cId,
                 pagenumber: val

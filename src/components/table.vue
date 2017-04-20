@@ -79,7 +79,7 @@
   
   export default {
     mounted(){
-     this.$http.get('/account/myPetsInfo  ',{
+     this.$http.get('/pkm/account/myPetsInfo  ',{
       params: {
         cId:this.cId,
         pagenumber: 0
@@ -135,7 +135,7 @@
         var data = [obj]
         this.$store.commit('SET_PET_DATA',data);
         var pId = obj.pId;
-        this.$http.get('/account/thisPetInfo',{
+        this.$http.get('/pkm/account/thisPetInfo',{
           params: {
             pId:pId,
           }

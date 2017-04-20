@@ -29,7 +29,7 @@
   import pagination from './pageination.vue'
   export default {
     mounted(){
-      this.$http.get('/account/myItems',{
+      this.$http.get('/pkm/account/myItems',{
         params: {
           cId:this.cId,
           pagenumber: 1

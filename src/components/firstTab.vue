@@ -194,7 +194,7 @@
           this.$store.commit('SET_PETINFO_SHOW',false);
           break;
           case '精灵装备':
-          this.$http.get('/account/myEquipsInfo',{
+          this.$http.get('/pkm/account/myEquipsInfo',{
             params: {
               cId:this.cId,
               pagenumber: 1

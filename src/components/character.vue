@@ -57,7 +57,7 @@
     mounted(){
     var numH  =  numH?numH:1;
 
-    this.$http.get('/account/characterInfo  ',{
+    this.$http.get('/pkm/account/characterInfo  ',{
       params: {
         cId: this.cId
       }

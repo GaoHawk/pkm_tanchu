@@ -68,7 +68,7 @@
   import { mapState } from 'vuex'
   export default {
     mounted(){
-       this.$http.get('/account/myEquipsInfo',{
+       this.$http.get('/pkm/account/myEquipsInfo',{
         params: {
           cId:this.cId,
           pagenumber: 1
